@@ -5,7 +5,7 @@
   "version"     : "0.0.1",
   "dependencies": {
     "csv"       : ">= 0.0.16",
-    "sqlite"    : ">= 1.0.4"
+    "sqlite3"   : ">= 2.1.0"
   },
   "engine"      : "node 0.6.12"
 }

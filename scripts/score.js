@@ -1,61 +1,54 @@
-var csv    = require('csv');
-var sqlite = require('sqlite');
+var csv     = require('csv');
 
-var results = {};
-var counter = 0;
+var sqlite3 = require('sqlite3').verbose();
+var db = new sqlite3.Database('../dbs/score.db', parse_file);
 
-var db = new sqlite.Database();
+function parse_file() {
+    var results = {};
+    var sql_m = db.prepare("INSERT INTO mouments VALUES(?,?,?,?)");
+    var sql_n = db.prepare("INSERT INTO name VALUES(?,?,?,?)");
+    var sql_a = db.prepare("INSERT INTO address VALUES(?,?,?,?)");
+    var sql_d = db.prepare("INSERT INTO date VALUES(?,?,?,?)");
 
-csv().fromPath('./relics_history.csv', {columns: true})
-    .transform(function (row, index) {
-         return {
-            relic_id      : row.relic_id,
-            nid_id        : row.nid_id,
-            name          : row.identification,
-            name_action   : row.identification_action,
-            street        : row.street,
-            street_action : row.street_action,
-            date          : row.dating,
-            date_action   : row.dating_action
-         };
-    })
-    .on('data', function (row, index) {
-        if(!results[row.id]) {
-            results[row.id] = [];
-        }
-        results[row.id].push(row);
-    })
-    .on('end', function (count) {
-        var key;
-        var data;
-        var save_to_db = function (obj) {
-            // add monument object
-            db.execute("INSERT INTO monuments VALUES(?, ?, ?, ?)",
-                       [ obj.oz_id, obj.nid_id, !!obj.touched, obj.cats ],
-                       function (err) { if(err) throw err; });
-                        
-            // add names
-            for(value in obj.names) { if(obj.names.hasOwnProperty(value) {
-                db.execute("INSERT INTO name VALUES(?, ?, ?, ?)",
-                           [ obj.nid_id, value, obj.names[value].actions.join(', '), obj.names[value].points ],
-                           function (err) { if(err) throw err; });
-            }});
-            // add addresses
-            for(value in obj.addresses) { if(obj.addresses.hasOwnProperty(value) {
-                db.execute("INSERT INTO address VALUES(?, ?, ?, ?)",
-                           [ obj.nid_id, value, obj.addresses[value].actions.join(', '), obj.addresses[value].points ],
-                           function (err) { if(err) throw err; });
-            }});
-            // add dates
-            for(value in obj.dates) { if(obj.dates.hasOwnProperty(value) {
-                db.execute("INSERT INTO name VALUES(?, ?, ?, ?)",
-                           [ obj.nid_id, value, obj.dates[value].actions.join(', '), obj.dates[value].points ],
-                           function (err) { if(err) throw err; });
-            }});
-        };
-
-        db.open('../dbs/score.db', function (err) {
-            if(err) throw err;
+    csv().fromPath('./relics_history.csv', {columns: true})
+        .transform(function (row, index) {
+             return {
+                relic_id      : row.relic_id,
+                nid_id        : row.nid_id,
+                name          : row.identification,
+                name_action   : row.identification_action,
+                street        : row.street,
+                street_action : row.street_action,
+                date          : row.dating,
+                date_action   : row.dating_action
+             };
+        })
+        .on('data', function (row, index) {
+            if(!results[row.id]) {
+                results[row.id] = [];
+            }
+            results[row.id].push(row);
+        })
+        .on('end', function (count) {
+            var key;
+            var data;
+            var save_to_db = function (obj) {
+                // add monument object
+                sql_m.run([obj.oz_id, obj.nid_id, !!obj.touched, obj.cats]);
+                            
+                // add names
+                for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
+                    sql_n.run([obj.nid_id, value, obj.names[value].actions.join(', '), obj.names[value].points]);
+                }};
+                // add addresses
+                for(value in obj.addresses) { if(obj.addresses.hasOwnProperty(value)) {
+                    sql_a.run([obj.nid_id, value, obj.addresses[value].actions.join(', '), obj.addresses[value].points ]);
+                }};
+                // add dates
+                for(value in obj.dates) { if(obj.dates.hasOwnProperty(value)) {
+                    sql_d.run([obj.nid_id, value, obj.dates[value].actions.join(', '), obj.dates[value].points ]);
+                }};
+            };
 
             for(key in results) {
                 // validate only these monuments that where touched by people
@@ -67,13 +60,17 @@ csv().fromPath('./relics_history.csv', {columns: true})
                 }
                 save_to_db(data);
             }
+            sql_m.finalize();
+            sql_n.finalize();
+            sql_a.finalize();
+            sql_d.finalize();
+            db.close();
+        })
+        .on('error', function (err) {
+            console.log(err);
+            process.exit();
         });
-    })
-    .on('error', function (err) {
-        console.log(err);
-        process.exit();
-    });
-
+}
 
 function validate(monument) {
     var result = {
