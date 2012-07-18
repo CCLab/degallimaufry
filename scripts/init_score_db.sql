@@ -6,7 +6,6 @@ CREATE TABLE monuments(
 );
 
 CREATE TABLE name(
-    id          INTEGER PRIMARY KEY,  -- internal id
     nid_id      INTEGER,
     value       TEXT,
     actions     TEXT,
@@ -15,7 +14,6 @@ CREATE TABLE name(
 );
 
 CREATE TABLE address(
-    id          INTEGER PRIMARY KEY,  -- internal id
     nid_id      INTEGER,
     value       TEXT,
     actions     TEXT,
@@ -24,7 +22,6 @@ CREATE TABLE address(
 );
 
 CREATE TABLE date(
-    id          INTEGER PRIMARY KEY,  -- internal id
     nid_id      INTEGER,
     value       TEXT,
     actions     TEXT,

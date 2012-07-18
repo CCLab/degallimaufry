@@ -4,7 +4,8 @@
   "author"      : "Centrum Cyfrowe <kontakt@centrumcyfrowe.pl>",
   "version"     : "0.0.1",
   "dependencies": {
-    "csv"       : ">= 0.0.16"
+    "csv"       : ">= 0.0.16",
+    "sqlite"    : ">= 1.0.4"
   },
   "engine"      : "node 0.6.12"
 }
