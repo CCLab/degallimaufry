@@ -50,37 +50,35 @@ function validate(monument) {
         name: {},
         address: {}
     };
-    var score = {
-        confirm  : 1,
-        revision : 1,
-        edit     : 2,
-        skip     : 0
-    };
+//    var score = {
+//        confirm  : 1,
+//        revision : 1,
+//        edit     : 2,
+//        skip     : 0
+//    };
+//
+//    monument.forEach(function (row) {
+//        var name = row[13].trim();
+//        var name_action = row[14];
+//
+//        var address = row[15].trim();
+//        var address_action = row[16];
+//
+//        if(!!name) {
+//            name = name[0].toUpperCase() + name.slice(1);
+//            result.name[name] = result.name[name] || { points: 0, actions: [] };
+//            result.name[name].points = (result.name[name].points || 0) + score[name_action];
+//            result.name[name].actions += name_action + ', ';
+//        }
+//        if(!!address) {
+//            address = parse_address(address);
+//            result.address[address] = result.address[address] || { points: 0, actions: [] };
+//            result.address[address].points = (result.address[address].points || 0) + score[address_action];
+//            result.address[address].actions += address_action + ', ';
+//        }
+//    });
 
-    monument.forEach(function (row) {
-        var name = row[13].trim();
-        var name_action = row[14];
-
-        var address = row[15].trim();
-        var address_action = row[16];
-
-        if(!!name) {
-            name = name[0].toUpperCase() + name.slice(1);
-            result.name[name] = result.name[name] || { points: 0, actions: [] };
-            result.name[name].points = (result.name[name].points || 0) + score[name_action];
-            result.name[name].actions += name_action + ', ';
-        }
-        if(!!address) {
-            address = parse_address(address);
-            result.address[address] = result.address[address] || { points: 0, actions: [] };
-            result.address[address].points = (result.address[address].points || 0) + score[address_action];
-            result.address[address].actions += address_action + ', ';
-        }
-    });
-
-    // code here
-    console.log(result);
-    console.log('-----------------------------------------------');
+    return result;
 } 
 
 function parse_name(name) {
