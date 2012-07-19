@@ -1,8 +1,8 @@
 CREATE TABLE monuments(
-    oz_id      INTEGER,     -- id in Otwarte Zabytki db
-    nid_id     INTEGER,     -- id in the NID db
-    touched    INTEGER,     -- 0 for false, 1 for true
-    categories TEXT         -- intersecion of users added categories
+    oz_id      INTEGER,     
+    nid_id     INTEGER,     
+    touched    INTEGER,     
+    categories TEXT         
 );
 
 CREATE TABLE name(
