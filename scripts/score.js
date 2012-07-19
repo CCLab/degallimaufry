@@ -22,7 +22,8 @@ function parse_file() {
                 street        : row.street,
                 street_action : row.street_action,
                 date          : row.dating,
-                date_action   : row.dating_action
+                date_action   : row.dating_action,
+                categories    : row.categories
              };
         })
         .on('data', function (row, index) {
@@ -34,27 +35,27 @@ function parse_file() {
         .on('end', function (count) {
             var key;
             var data;
-            var save_to_db = function (obj) {
+            var insert = function (obj) {
                 // add monument object
                 db.serialize(function () {
-                    var mon_array = [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, obj.cats];
-                    db.run("INSERT INTO monuments VALUES(?,?,?,?)",mon_array); 
-                           
+                    // add monument singular data: ids, state and categories
+                    db.run("INSERT INTO monuments VALUES(?,?,?,?)",
+                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, (obj.cats.join(',') || null)]); 
                                 
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
                         db.run("INSERT INTO name VALUES(?,?,?,?)", 
-                               [obj.nid_id, value, obj.names[value].actions.join(', '), obj.names[value].points]);
+                               [obj.nid_id, value, obj.names[value].actions.join(','), obj.names[value].points]);
                     }};
                     // add addresses
                     for(value in obj.addresses) { if(obj.addresses.hasOwnProperty(value)) {
                         db.run("INSERT INTO address VALUES(?,?,?,?)",
-                               [obj.nid_id, value, obj.addresses[value].actions.join(', '), obj.addresses[value].points ]);
+                               [obj.nid_id, value, obj.addresses[value].actions.join(','), obj.addresses[value].points ]);
                     }};
                     // add dates
                     for(value in obj.dates) { if(obj.dates.hasOwnProperty(value)) {
                         db.run("INSERT INTO date VALUES(?,?,?,?)",
-                               [obj.nid_id, value, obj.dates[value].actions.join(', '), obj.dates[value].points ]);
+                               [obj.nid_id, value, obj.dates[value].actions.join(','), obj.dates[value].points ]);
                     }};
                 });
             };
@@ -63,11 +64,11 @@ function parse_file() {
                 console.log('>>> pushing data into db');
                 db.run('BEGIN');
                 for(key in results) {
-                    data = validate(results[key]);
-                    save_to_db(data);
+                    insert(validate(results[key]));
                 }
                 db.run('COMMIT');
-                db.each('select * from monuments limit 5', function (e, r) {
+                // just a simple feedback
+                db.each('select * from monuments where categories is not null limit 5', function (e, r) {
                     console.log(r);
                 });
             });
@@ -79,16 +80,17 @@ function parse_file() {
         });
 }
 
-function validate(monument) {
+function validate(revisions) {
     var result = {
-        oz_id     : monument[0].relic_id,
-        nid_id    : monument[0].nid_id,
-        touched   : (monument.length > 1),
-        cats      : "aa, bb, cc",
+        oz_id     : revisions[0].relic_id,
+        nid_id    : revisions[0].nid_id,
+        touched   : (revisions.length > 1),
+        cats      : [],
         names     : {},
         addresses : {},
         dates     : {}
     };
+    var tmp_cats = {};
     var score = {
         edit     : 2,
         revision : 1,
@@ -96,16 +98,18 @@ function validate(monument) {
         skip     : 0
     };
 
-    monument.forEach(function (row) {
-        var name        = row.name || '';
-        var name_action = row.name_action;
+    revisions.forEach(function (revision) {
+        var name        = revision.name || '';
+        var name_action = revision.name_action;
 
-        var address        = row.address || '';
-        var address_action = row.address_action;
+        var address        = revision.address || '';
+        var address_action = revision.address_action;
 
-        var date        = row.date || '';
-        var date_action = row.date_action;
-        
+        var date        = revision.date || '';
+        var date_action = revision.date_action;
+       
+        var categories = (revision.categories || '').split(','); 
+
         if(!!name.trim()) {
             name = name[0].toUpperCase() + name.slice(1);
             result.names[name] = result.names[name] || { points: 0, actions: [] };
@@ -124,7 +128,19 @@ function validate(monument) {
             result.dates[date].points = (result.dates[date].points || 0) + score[date_action];
             result.dates[date].actions.push(date_action);
         }
+        if(!!categories.length) {
+            categories.forEach(function (category) {
+                tmp_cats[category] = (tmp_cats[category] || 0) + 1;
+            });
+        }
     });
+
+    for(cat in tmp_cats) {
+        // collect only categories selected by all revisioners
+        if(tmp_cats[cat] === (revisions.length - 1)) {
+            result.cats.push(cat);
+        }
+    }
 
     return result;
 } 
