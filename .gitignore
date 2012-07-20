@@ -1,1 +1,4 @@
 *.sw*
+*csv
+node_modules
+dbs

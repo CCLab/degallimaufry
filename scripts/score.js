@@ -2,11 +2,7 @@ var csv = require('csv');
 var fs  = require('fs');
 
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('../dbs/score.db', function () {
-    fs.readFile('init_score_db.sql', 'utf-8', function (err, data) {
-        db.exec(data, parse_file);
-    });
-});
+var db = new sqlite3.Database('../dbs/score.db', parse_file);
 
 function parse_file() {
     var results = {};
@@ -69,6 +65,9 @@ function parse_file() {
                 db.run('COMMIT');
                 // just a simple feedback
                 db.each('select * from monuments where categories is not null limit 5', function (e, r) {
+                    console.log(r);
+                });
+                db.each('select * from name limit 5', function (e, r) {
                     console.log(r);
                 });
             });
@@ -150,6 +149,7 @@ function parse_name(name) {
     return name;
 }
 
+// TODO debug this function
 // converts address into address object
 function parse_address(address) {
     // get rid of zip code and city name
