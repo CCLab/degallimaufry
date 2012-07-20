@@ -11,15 +11,15 @@ function parse_file() {
     csv().fromPath('./relics_history.csv', {columns: true})
         .transform(function (row, index) {
              return {
-                relic_id      : row.relic_id,
-                nid_id        : row.nid_id,
-                name          : row.identification,
-                name_action   : row.identification_action,
-                street        : row.street,
-                street_action : row.street_action,
-                date          : row.dating,
-                date_action   : row.dating_action,
-                categories    : row.categories
+                relic_id       : row.relic_id,
+                nid_id         : row.nid_id,
+                name           : row.identification,
+                name_action    : row.identification_action,
+                address        : row.street,
+                address_action : row.street_action,
+                date           : row.dating,
+                date_action    : row.dating_action,
+                categories     : row.categories
              };
         })
         .on('data', function (row, index) {
@@ -149,7 +149,6 @@ function parse_name(name) {
     return name;
 }
 
-// TODO debug this function
 // converts address into address object
 function parse_address(address) {
     // get rid of zip code and city name
