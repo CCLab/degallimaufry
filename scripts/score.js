@@ -151,6 +151,13 @@ function parse_name(name) {
 
 // converts address into address object
 function parse_address(address) {
+    var types = {
+        '^ *ul(ica|\.)? *'    : 'ul. ',
+        '^ *al(ej[ea]|\.)? *' : 'al.'
+    };
+    var rx;
+    var parts;
+
     // get rid of zip code and city name
     address = address.split(',')
                      .map(function (e) {
@@ -162,7 +169,14 @@ function parse_address(address) {
     address = address.replace(/^\s*"?\s*|\s*"?\s*$/g, '');
     
     // TODO unify 'ul.', 'al.' etc.
-    // code here
+    for(rx in types) { if(types.hasOwnProperty(rx)) {
+       parts = address.match(new RegExp(rx, 'i'));
+       if(!!parts) {
+            address.replace(parts[0], types[rx]);
+            // quite this loop after unifying
+            break;
+       }
+    }};
 
     return address;
 }
