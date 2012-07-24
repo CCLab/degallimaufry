@@ -1,6 +1,10 @@
 cd scripts
 echo ""
 echo ">>> downloading monuments revision history file"
+if [ -f relics_history.csv ]
+then
+  rm relics_history.csv
+fi
 wget http://otwartezabytki.pl/system/relics_history.csv
 echo ""
 echo ">>> creating dbs"
