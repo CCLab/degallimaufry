@@ -57,11 +57,12 @@ function parse_file() {
             };
 
             db.serialize(function () {
-                console.log('>>> pushing data into db');
+                console.log('>>> cleaning up data');
                 db.run('BEGIN');
                 for(key in results) {
                     insert(validate(results[key]));
                 }
+                console.log('>>> pushing data into db');
                 db.run('COMMIT');
                 // just a simple feedback
                 db.each('select * from monuments where categories is not null limit 5', function (e, r) {
@@ -145,15 +146,16 @@ function validate(revisions) {
 } 
 
 function parse_name(name) {
-    // code here
+    // TODO remove "w zespole..."
     return name;
 }
 
 // converts address into address object
 function parse_address(address) {
     var types = {
-        '^ *ul(ica|\.)? *'    : 'ul. ',
-        '^ *al(ej[ea]|\.)? *' : 'al.'
+        '^ul(ica|\.)? *'     : 'ul. ',
+        '^al(ej[ea]|\.)? *'  : 'al. ',
+        '^o[sś](iedle|\.)? *': 'os. '
     };
     var rx;
     var parts;
@@ -168,11 +170,11 @@ function parse_address(address) {
     // trim whitespaces and quotes
     address = address.replace(/^\s*"?\s*|\s*"?\s*$/g, '');
     
-    // TODO unify 'ul.', 'al.' etc.
+    // unify 'ul.', 'al.' etc.
     for(rx in types) { if(types.hasOwnProperty(rx)) {
        parts = address.match(new RegExp(rx, 'i'));
        if(!!parts) {
-            address.replace(parts[0], types[rx]);
+            address = address.replace(parts[0], types[rx]);
             // quite this loop after unifying
             break;
        }
