@@ -19,9 +19,3 @@ echo ">>> verifying data"
 node score.js
 #rm relics_history.csv
 #rm -rf node_modules
-echo ""
-echo ">>> score db is ready to use"
-cd ..
-echo ">>> installing express dependencies"
-npm install
-node app.js
