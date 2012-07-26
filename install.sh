@@ -1,6 +1,10 @@
 cd scripts
 echo ""
 echo ">>> downloading monuments revision history file"
+if [ -f relics_history.csv ]
+then
+  rm relics_history.csv
+fi
 wget http://otwartezabytki.pl/system/relics_history.csv
 echo ""
 echo ">>> creating dbs"
@@ -15,9 +19,3 @@ echo ">>> verifying data"
 node score.js
 #rm relics_history.csv
 #rm -rf node_modules
-echo ""
-echo ">>> score db is ready to use"
-cd ..
-echo ">>> installing express dependencies"
-npm install
-node app.js
