@@ -2,6 +2,7 @@ CREATE TABLE monuments(
     oz_id      INTEGER,     
     nid_id     INTEGER,     
     touched    INTEGER,     
+    reviewed   INTEGER,
     categories TEXT         
 );
 
