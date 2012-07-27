@@ -153,7 +153,7 @@ function parse_name(name) {
 // converts address into address object
 function parse_address(address) {
     var types = {
-        '^ul(ica|\.)? *'     : 'ul. ',
+        '^ul(ic[ea]|\.)?:? *'     : 'ul. ',
         '^al(ej[ea]|\.)? *'  : 'al. ',
         '^o[sś](iedle|\.)? *': 'os. '
     };
