@@ -3,6 +3,7 @@ CREATE TABLE monuments(
     nid_id     INTEGER,     
     touched    INTEGER,     
     reviewed   INTEGER,
+    locked     INTEGER,
     categories TEXT         
 );
 

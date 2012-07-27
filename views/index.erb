@@ -1,0 +1,25 @@
+<html>
+<head>
+<title>Degallimaufry - <%= @monument.nid_id %></title>
+</head>
+<body>
+<div id="message"><%= session[:notice] %></div>
+<h1>Nid_id: <%= @monument.nid_id %></h1>
+<form name="review" action="/check" method="POST">
+<input type="hidden" name="nid_id" value="<%= @monument.nid_id %>">
+<h3>Nazwa:</h3>
+<% @names.each do |name| %>
+<input type="radio" name="name" value="<%= name.value %>"  <% if @names.size == 1 || (name == @names[0] && @names[0].points > @names[1].points+1)%>checked<% end %>><%= name.value %> (Punktów: <%= name.points %>, historia: <%= name.actions %>)</br>
+<% end %>
+<h3>Adres:</h3>
+<% @addresses.each do |address| %>
+<input type="radio" name="address" value="<%= address.value %>"  <% if @addresses.size == 1 || (address == @addresses[0] && @addresses[0].points > @addresses[1].points+1)%>checked<% end %>><%= address.value %> (Punktów: <%= address.points %>, historia: <%= address.actions %>)</br>
+<% end %>
+<h3>Data powstania:</h3>
+<% @dates.each do |date| %>
+<input type="radio" name="date" value="<%= date.value %>"  <% if @dates.size == 1 || (date == @dates[0] && @dates[0].points > @dates[1].points+1)%>checked<% end %>><%= date.value %> (Punktów: <%= date.points %>, historia: <%= date.actions %>)</br>
+<% end %>
+<input type="submit">
+</form>
+</body>
+</html>
