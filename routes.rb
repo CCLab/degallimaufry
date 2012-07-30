@@ -103,8 +103,8 @@ get '/:nid_id' do
 end
 
 post '/check' do
+  @monument = Monuments.first(:nid_id => params[:nid_id])
   if @monument != nil
-    @monument = Monuments.first(:nid_id => params[:nid_id])
     erb :check
   else
     session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
