@@ -3,6 +3,8 @@
 require 'rubygems'
 require 'sinatra'
 require 'data_mapper'
+require 'sqlite3'
+require 'dm-sqlite-adapter'
 
 DataMapper::Logger.new($stdout, :debug)
 DataMapper.setup(:default, 'sqlite:dbs/score.db')
@@ -15,7 +17,6 @@ class Address
   property :nid_id, Integer, :key => true       
   property :value, Text, :key => true
   property :points, Integer
-
 end
 
 class DateProps
