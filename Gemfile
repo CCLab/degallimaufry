@@ -1,6 +1,5 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
-gem 'rubygems'
 gem 'sinatra'
 gem 'data_mapper'
 gem 'sqlite3'
