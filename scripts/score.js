@@ -112,7 +112,7 @@ function validate(revisions) {
         var categories = (revision.categories || '').split(','); 
 
         if(!!name.trim()) {
-            name  = parse_name(name, revision.type === 'OZ');
+            name  = parse_name(name, revision.type === 'OZ' || revision.type === 'SA');
             result.names[name] = result.names[name] || { points: 0, actions: [] };
             result.names[name].points = (result.names[name].points || 0) + score[name_action];
             result.names[name].actions.push(name_action);
@@ -155,8 +155,9 @@ function parse_name(name, single) {
     if(single) {
         match = name.match(/(.*[^\(])( ?\(?w zespol.*)(ob(\.|ecnie) .*)?$/)
         if(!!match) {
-            // TODO - deal woith comma
+            // TODO - deal with comma
             name = match[1] + (match[3] ? match[3] : '');
+            console.log(name);
         }
     }
     return name;
