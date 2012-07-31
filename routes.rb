@@ -83,17 +83,21 @@ get '/' do
     @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     if @addresses.size < 2 && @dates.size < 2 && @names.size < 2
-      params = Hash.new
-      params[:nid_id] = @monument.nid_id
-      params[:name] = @names[0]
-      params[:address] = @addresses[0]
-      params[:date] = @dates[0]
-      redirect '/'
+      name = ""
+      name = @names[0].value unless @names[0] == nil
+      address = ""
+      address = @addresses[0].value unless @addresses[0] == nil
+      date = ""
+      date = @dates[0].value unless @dates[0] == nil
+      if ResultMonuments.create(:oz_id => @monument.oz_id, :nid_id => @monument.nid_id, :touched => @monument.touched, :name => name, :address => address, :date => date, :categories => @monument.categories)
+        @monument.update(:reviewed => 1)
+      end
+      redirect '/', 307
     else
     erb :index
     end
   else
-    session[:alert] = "Brak zabytków do sprawdzenia"
+    session[:alert] = "Brak zabytków do sprawdzenia" 
   end
 end
 
@@ -104,7 +108,6 @@ get '/:nid_id' do
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-  
     erb :index
   else
     session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
@@ -113,6 +116,8 @@ end
 
 post '/' do
   puts "POST================"
+  session[:alert] = ""
+  session[:notice] = ""
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
   if @monumentToUpdate != nil
     if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :date => params[:date], :categories => @monumentToUpdate.categories)
