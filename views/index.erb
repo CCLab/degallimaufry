@@ -8,11 +8,13 @@
 jQuery(document).ready(function(){
     jQuery('input[type=radio]').click(function(){
 //Łapiemy wszystkie spany stojące obok radiobuttonów odpowiadających za pewne pole i wsadzamy do nich text równy value
-        $('.'+$(this).attr('name')).html("meh");
+        $('label.'+$(this).attr('name')).css('display', 'inline');
 //Łapiemy span z id równym value zaznaczonego buttona i wsadzamy do niego input text z value, name powinno być równe name radiobuttona z obciętym "_b", czyli np. "date_b" -> "date"     
-        $('#'+$(this).val()).html("blemeh");
+        $('label.'+$(this).attr('id')).css('display', 'none');
+        $('input[type=text][name='+$(this).attr('name').substr(0, $(this).attr('name').length-2)+']').detach();
+        inputField = "<input type=\"text\" name=\""+$(this).attr('name').substr(0, $(this).attr('name').length-2)+"\" value=\""+$(this).attr('value')+"\">"
+        $('span.'+$(this).attr('id')).append(inputField);
 //Sprawdzamy czy istnieje input[type=text] dla name, address i date i jeśli tak to usuwamy z submit disabled
-//      ?
     });
 });
 
@@ -25,34 +27,34 @@ jQuery(document).ready(function(){
 <h3>Nazwa:</h3>
 <% @names.each do |name| %>
   <% if @names.size == 1 %>
-  <input type="radio" name="name_b" value="<%= name.value %>" checked disabled><span class="name_b" id="<%= name.value %>"><input type="text" name="name" value="<%= name.value %>"></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
+  <input type="radio" name="name_b" id="<%= name %>" value="<%= name.value %>" checked disabled><span class="name_b"><input type="text" name="name" value="<%= name.value %>"></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
   <% elsif name == @names[0] && @names[0].points > @names[1].points+1 %>
-  <input type="radio" name="name_b" value="<%= name.value %>" checked><span class="name_b" id="<%= name.value %>"><input type="text" name="name" value="<%= name.value %>"></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
+  <input type="radio" name="name_b" id="<%= name.nid_id+name.value.length %>" value="<%= name.value %>" checked><span class="name_b <%= name.nid_id+name.value.length %>"><label class="name_b <%= name.nid_id+name.value.length %>" for="<%= name.nid_id+name.value.length %>" style="display:none;"><%= name.value %></label> <input type="text" name="name" value="<%= name.value %>"></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
   <% else %>
-  <input type="radio" name="name_b" value="<%= name.value %>" ><span class="name_b" id="<%= name.value %>"><%= name.value %></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
+  <input type="radio" name="name_b" id="<%= name.nid_id+name.value.length %>" value="<%= name.value %>" ><span class="name_b <%= name.nid_id+name.value.length %>"><label class="name_b <%= name.nid_id+name.value.length %>" for="<%= name.nid_id+name.value.length %>"><%= name.value %></label></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
   <% end %>
 <% end %>
 <h3>Adres:</h3>
 <% @addresses.each do |address| %>
   <% if @addresses.size == 1 %>
-  <input type="radio" name="address_b" value="<%= address.value %>" checked disabled><span class="address_b" id="<%= address.value %>"><input type="text" name="address" value="<%= address.value %>"></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
+  <input type="radio" name="address_b" id="<%= address %>" value="<%= address.value %>" checked disabled><span class="address_b"><input type="text" name="address" value="<%= address.value %>"></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
   <% elsif address == @addresses[0] && @addresses[0].points > @addresses[1].points+1 %>
-  <input type="radio" name="address_b" value="<%= address.value %>" checked><span class="address_b" id="<%= address.value %>"><input type="text" name="address" value="<%= address.value %>"></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
+  <input type="radio" name="address_b" id="<%= address.nid_id+address.value.length %>" value="<%= address.value %>" checked><span class="address_b <%= address.nid_id+address.value.length %>"><label class="address_b <%= address.nid_id+address.value.length %>" for="<%= address.nid_id+address.value.length %>" style="display:none;"><%= address.value %></label> <input type="text" name="address" value="<%= address.value %>"></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
   <% else %>
-  <input type="radio" name="address_b" value="<%= address.value %>" ><span class="address_b" id="<%= address.value %>"><%= address.value %></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
+  <input type="radio" name="address_b" id="<%= address.nid_id+address.value.length %>" value="<%= address.value %>" ><span class="address_b <%= address.nid_id+address.value.length %>"><label class="address_b <%= address.nid_id+address.value.length %>" for="<%= address.nid_id+address.value.length %>"><%= address.value %></label></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
   <% end %>
 <% end %>
-<h3>Data powstania:</h3>
+<h3>Data:</h3>
 <% @dates.each do |date| %>
   <% if @dates.size == 1 %>
-  <input type="radio" name="date_b" value="<%= date.value %>" checked disabled><span class="date_b" id="<%= date.value %>"><input type="text" name="date" value="<%= date.value %>"></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
+  <input type="radio" name="date_b" id="<%= date %>" value="<%= date.value %>" checked disabled><span class="date_b"><input type="text" name="date" value="<%= date.value %>"></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
   <% elsif date == @dates[0] && @dates[0].points > @dates[1].points+1 %>
-  <input type="radio" name="date_b" value="<%= date.value %>" checked><span class="date_b" id="<%= date.value %>"><input type="text" name="date" value="<%= date.value %>"></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
+  <input type="radio" name="date_b" id="<%= date.nid_id+date.value.length %>" value="<%= date.value %>" checked><span class="date_b <%= date.nid_id+date.value.length %>"><label class="date_b <%= date.nid_id+date.value.length %>" for="<%= date.nid_id+date.value.length %>" style="display:none;"><%= date.value %></label> <input type="text" name="date" value="<%= date.value %>"></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
   <% else %>
-  <input type="radio" name="date_b" value="<%= date.value %>" ><span class="date_b" id="<%= date.value %>"><%= date.value %></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
+  <input type="radio" name="date_b" id="<%= date.nid_id+date.value.length %>" value="<%= date.value %>" ><span class="date_b <%= date.nid_id+date.value.length %>"><label class="date_b <%= date.nid_id+date.value.length %>" for="<%= date.nid_id+date.value.length %>"><%= date.value %></label></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
   <% end %>
 <% end %>
-<input type="submit" value="Zapisz i dawaj dalej!" disabled>
+<input type="submit" value="Zapisz i dawaj dalej!" id="submit">
 </form>
 </body>
 </html>
