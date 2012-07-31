@@ -115,7 +115,7 @@ get '/:nid_id' do
 end
 
 post '/' do
-  puts "POST================"
+  puts "PARAMS: #{params}"
   session[:alert] = ""
   session[:notice] = ""
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
