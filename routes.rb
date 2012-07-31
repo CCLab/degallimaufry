@@ -102,15 +102,6 @@ get '/:nid_id' do
   end
 end
 
-post '/check' do
-  if @monument != nil
-    @monument = Monuments.first(:nid_id => params[:nid_id])
-    erb :check
-  else
-    session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
-  end
-end
-
 post '/' do
   puts "#{params}"
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
