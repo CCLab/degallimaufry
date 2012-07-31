@@ -19,7 +19,8 @@ function parse_file() {
                 address_action : row.street_action,
                 date           : row.dating,
                 date_action    : row.dating_action,
-                categories     : row.categories
+                categories     : row.categories,
+                type           : row.nid_kind
              };
         })
         .on('data', function (row, index) {
@@ -108,10 +109,10 @@ function validate(revisions) {
         var date        = revision.date || '';
         var date_action = revision.date_action;
        
-        var categories = (revision.categories || '').split(','); 
+        var categories = !!revision.categories ? revision.categories.split(',') : [];
 
         if(!!name.trim()) {
-            name = name[0].toUpperCase() + name.slice(1);
+            name  = parse_name(name, revision.type === 'OZ' || revision.type === 'SA');
             result.names[name] = result.names[name] || { points: 0, actions: [] };
             result.names[name].points = (result.names[name].points || 0) + score[name_action];
             result.names[name].actions.push(name_action);
@@ -145,15 +146,26 @@ function validate(revisions) {
     return result;
 } 
 
-function parse_name(name) {
-    // TODO remove "w zespole..."
+
+function parse_name(name, single) {
+    var match;
+    // the names were upper-changed in the middle of the project
+    // so some names starts with upper case, some with lower case
+    name = name[0].toUpperCase() + name.slice(1);
+    
+    if(single) {
+        match = name.match(/(.*[^\(])( ?\(?w zespol.*)(ob(\.|ecnie) .*)?$/)
+        if(!!match) {
+            name = strip(match[1]) + (match[3] ? ', ' + strip(match[3]) : '');
+        }
+    }
     return name;
 }
 
 // converts address into address object
 function parse_address(address) {
     var types = {
-        '^ul(ica|\.)? *'     : 'ul. ',
+        '^ul(ic[ea]|\.)?:? *'     : 'ul. ',
         '^al(ej[ea]|\.)? *'  : 'al. ',
         '^o[sś](iedle|\.)? *': 'os. '
     };
@@ -168,7 +180,7 @@ function parse_address(address) {
                      .join('');
 
     // trim whitespaces and quotes
-    address = address.replace(/^\s*"?\s*|\s*"?\s*$/g, '');
+    address = strip(address);
     
     // unify 'ul.', 'al.' etc.
     for(rx in types) { if(types.hasOwnProperty(rx)) {
@@ -188,3 +200,8 @@ function parse_date(date) {
     return date;
 }
 
+
+// like String.prototype.trim, but better ;)
+function strip(str) {
+    return str.replace(/^\s*"?\s*|\s*"?\s*$/, '');
+}
