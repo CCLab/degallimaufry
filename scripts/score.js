@@ -109,7 +109,7 @@ function validate(revisions) {
         var date        = revision.date || '';
         var date_action = revision.date_action;
        
-        var categories = (revision.categories || '').split(','); 
+        var categories = !!revision.categories ? revision.categories.split(',') : [];
 
         if(!!name.trim()) {
             name  = parse_name(name, revision.type === 'OZ' || revision.type === 'SA');
@@ -146,6 +146,7 @@ function validate(revisions) {
     return result;
 } 
 
+
 function parse_name(name, single) {
     var match;
     // the names were upper-changed in the middle of the project
@@ -155,9 +156,7 @@ function parse_name(name, single) {
     if(single) {
         match = name.match(/(.*[^\(])( ?\(?w zespol.*)(ob(\.|ecnie) .*)?$/)
         if(!!match) {
-            // TODO - deal with comma
-            name = match[1] + (match[3] ? match[3] : '');
-            console.log(name);
+            name = strip(match[1]) + (match[3] ? ', ' + strip(match[3]) : '');
         }
     }
     return name;
@@ -181,7 +180,7 @@ function parse_address(address) {
                      .join('');
 
     // trim whitespaces and quotes
-    address = address.replace(/^\s*"?\s*|\s*"?\s*$/g, '');
+    address = strip(address);
     
     // unify 'ul.', 'al.' etc.
     for(rx in types) { if(types.hasOwnProperty(rx)) {
@@ -201,3 +200,8 @@ function parse_date(date) {
     return date;
 }
 
+
+// like String.prototype.trim, but better ;)
+function strip(str) {
+    return str.replace(/^\s*"?\s*|\s*"?\s*$/, '');
+}
