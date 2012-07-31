@@ -76,37 +76,53 @@ enable :sessions
 
 get '/' do
   @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60))
-  @monument.update(:locked => Time.now)
-  @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-  @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-  @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-  
-  erb :index
+  if @monument != nil
+    @monument.update(:locked => Time.now)
+    @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    
+    erb :index
+  else
+    session[:alert] = "Brak zabytków do sprawdzenia"
+  end
 end
 
 get '/:nid_id' do
   @monument = Monuments.first(:nid_id => params[:nid_id])
-  @monument.update(:locked => Time.now)
-  @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-  @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-  @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+  if @monument != nil
+    @monument.update(:locked => Time.now)
+    @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
   
-  erb :index
+    erb :index
+  else
+    session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
+  end
 end
 
 post '/check' do
   @monument = Monuments.first(:nid_id => params[:nid_id])
-  erb :check
+  if @monument != nil
+    erb :check
+  else
+    session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
+  end
 end
 
 post '/' do
   puts "#{params}"
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
-  if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :categories => @monumentToUpdate.categories)
-    @monumentToUpdate.update(:reviewed => 1)
-    session[:notice] = "Wszystko poszło OK (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
+  if @monumentToUpdate != nil
+    if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :categories => @monumentToUpdate.categories)
+      @monumentToUpdate.update(:reviewed => 1)
+      session[:notice] = "Wszystko poszło OK (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
+    else
+      session[:alert] = "Coś poszło nie tak (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
+    end
+    redirect to('/')
   else
-    session[:alert] = "Coś poszło nie tak (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
+    session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
   end
-  redirect to('/')
 end
