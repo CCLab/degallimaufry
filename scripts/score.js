@@ -19,7 +19,8 @@ function parse_file() {
                 address_action : row.street_action,
                 date           : row.dating,
                 date_action    : row.dating_action,
-                categories     : row.categories
+                categories     : row.categories,
+                type           : row.nid_kind
              };
         })
         .on('data', function (row, index) {
@@ -111,7 +112,7 @@ function validate(revisions) {
         var categories = (revision.categories || '').split(','); 
 
         if(!!name.trim()) {
-            name = name[0].toUpperCase() + name.slice(1);
+            name  = parse_name(name, revision.type === 'OZ');
             result.names[name] = result.names[name] || { points: 0, actions: [] };
             result.names[name].points = (result.names[name].points || 0) + score[name_action];
             result.names[name].actions.push(name_action);
@@ -145,8 +146,19 @@ function validate(revisions) {
     return result;
 } 
 
-function parse_name(name) {
-    // TODO remove "w zespole..."
+function parse_name(name, single) {
+    var match;
+    // the names were upper-changed in the middle of the project
+    // so some names starts with upper case, some with lower case
+    name = name[0].toUpperCase() + name.slice(1);
+    
+    if(single) {
+        match = name.match(/(.*[^\(])( ?\(?w zespol.*)(ob(\.|ecnie) .*)?$/)
+        if(!!match) {
+            // TODO - deal woith comma
+            name = match[1] + (match[3] ? match[3] : '');
+        }
+    }
     return name;
 }
 
