@@ -19,6 +19,9 @@ jQuery(document).ready(function(){
            $('#submit').removeAttr('disabled'); 
         }
     });
+    if( $('input[name="name"]').length > 0 && $('input[name="date"]').length > 0 && $('input[name="address"]').length > 0 ){
+        $('#submit').removeAttr('disabled');
+    }
 });
 
 </script>
