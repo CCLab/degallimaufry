@@ -20,7 +20,9 @@ function parse_file() {
                 date           : row.dating,
                 date_action    : row.dating_action,
                 categories     : row.categories,
-                type           : row.nid_kind
+                type           : row.nid_kind,
+                lat            : row.latitude,
+                lon            : row.longitude
              };
         })
         .on('data', function (row, index) {
@@ -36,8 +38,8 @@ function parse_file() {
                 // add monument object
                 db.serialize(function () {
                     // add monument singular data: ids, state and categories
-                    db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?)",
-                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, (obj.cats.join(',') || null)]); 
+                    db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?)",
+                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, 0.0, 0.0]); 
                                 
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
@@ -53,6 +55,11 @@ function parse_file() {
                     for(value in obj.dates) { if(obj.dates.hasOwnProperty(value)) {
                         db.run("INSERT INTO date VALUES(?,?,?,?)",
                                [obj.nid_id, value, obj.dates[value].actions.join(','), obj.dates[value].points ]);
+                    }};
+                    // add categories
+                    for(value in obj.cats) { if(obj.cats.hasOwnProperty(value)) {
+                        db.run("INSERT INTO category VALUES(?,?,?)",
+                               [obj.nid_id, value, obj.cats[value] ]);
                     }};
                 });
             };
@@ -86,12 +93,16 @@ function validate(revisions) {
         oz_id     : revisions[0].relic_id,
         nid_id    : revisions[0].nid_id,
         touched   : (revisions.length > 1),
-        cats      : [],
+        cats      : {},
         names     : {},
         addresses : {},
-        dates     : {}
+        dates     : {},
+        lat       : 0.0,
+        lon       : 0.0
     };
-    var tmp_cats = {};
+    var tmp_lats = {};
+    var tmp_lons = {};
+
     var score = {
         edit     : 2,
         revision : 1,
@@ -131,17 +142,10 @@ function validate(revisions) {
         }
         if(!!categories.length) {
             categories.forEach(function (category) {
-                tmp_cats[category] = (tmp_cats[category] || 0) + 1;
+                result.cats[category] = (result.cats[category] || 0) + 1;
             });
         }
     });
-
-    for(cat in tmp_cats) {
-        // collect only categories selected by all revisioners
-        if(tmp_cats[cat] === (revisions.length - 1)) {
-            result.cats.push(cat);
-        }
-    }
 
     return result;
 } 

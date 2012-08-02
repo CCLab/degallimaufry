@@ -4,7 +4,8 @@ CREATE TABLE monuments(
     touched    INTEGER,     
     reviewed   INTEGER,
     locked     INTEGER,
-    categories TEXT         
+    lat        REAL,
+    lon        REAL
 );
 
 CREATE TABLE name(
@@ -27,6 +28,13 @@ CREATE TABLE date(
     nid_id      INTEGER,
     value       TEXT,
     actions     TEXT,
+    points      INTEGER,
+    FOREIGN KEY(nid_id) REFERENCES monuments(nid_id)
+);
+
+CREATE TABLE category(
+    nid_id      INTEGER,
+    value       TEXT,
     points      INTEGER,
     FOREIGN KEY(nid_id) REFERENCES monuments(nid_id)
 );
