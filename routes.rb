@@ -139,6 +139,9 @@ post '/' do
   @cats = @cats.slice(0, @cats.length-1)
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
   if @monumentToUpdate != nil
+    if @m = ResultMonuments.first(:nid_id => params[:nid_id])
+      @m.destroy
+    end
     if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :date => params[:date], :categories => @cats, :lon => @monumentToUpdate.lon, :lat => @monumentToUpdate.lat)
       @monumentToUpdate.update(:reviewed => 1)
       session[:notice] = "Wszystko poszło OK (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
