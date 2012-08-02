@@ -121,6 +121,7 @@ get '/:nid_id' do
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    @categories = Category.all(:nid_id => @monument.nid_id, :order => [ :points.desc])
     erb :index
   else
     session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
