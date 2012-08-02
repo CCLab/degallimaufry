@@ -132,6 +132,7 @@ post '/' do
   session[:alert] = ""
   session[:notice] = ""
   @cats = ""
+  params[:categories] = params[:categories] || []
   params[:categories].each do |c|
     @cats += (c+',')
   end
