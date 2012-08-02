@@ -5,6 +5,8 @@ CREATE TABLE monuments(
     name       TEXT,
     address    TEXT,
     date       TEXT,
-    categories TEXT         -- intersecion of users added categories
+    categories TEXT,
+    lat        REAL,
+    lon        REAL
 );
 

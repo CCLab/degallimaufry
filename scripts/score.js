@@ -38,8 +38,8 @@ function parse_file() {
                 // add monument object
                 db.serialize(function () {
                     // add monument singular data: ids, state and categories
-                    db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?)",
-                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, 0.0, 0.0]); 
+                    db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?,?)",
+                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, 3, 0.0, 0.0]); 
                                 
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {

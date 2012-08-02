@@ -1,11 +1,12 @@
 CREATE TABLE monuments(
-    oz_id      INTEGER,     
-    nid_id     INTEGER,     
-    touched    INTEGER,     
-    reviewed   INTEGER,
-    locked     INTEGER,
-    lat        REAL,
-    lon        REAL
+    oz_id        INTEGER,     
+    nid_id       INTEGER,     
+    touched      INTEGER,     
+    reviewed     INTEGER,
+    locked       INTEGER,
+    edit_counter INTEGER,
+    lat          REAL,
+    lon          REAL
 );
 
 CREATE TABLE name(

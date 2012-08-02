@@ -66,7 +66,16 @@ jQuery(document).ready(function(){
 <% if @dates.size == 0 %>
 <input type="hidden" name="date" value="">
 <% end %>
-<input type="submit" value="Zapisz i dawaj dalej!" id="submit" disabled>
+<h3>Kategorie:</h3>
+<% @categories.each do |category| %>
+  <% if category.points == @categories[0].points %>
+  <label><input type="checkbox" name="categories[]" id="<%= category.value %>" value="<%= category.value %>" checked><%= category.value %></label> (<%= category.points %>)
+  <% else %>
+  <label><input type="checkbox" name="categories[]" id="<%= category.value %>" value="<%= category.value %>"><%= category.value %></label> (<%= category.points %>)
+  <% end %>
+<% end %>
+
+<input type="submit" value="Zapisz i dawaj dalej!" id="submit" <% if @names.size > 1 || @dates.size > 1 || @addresses.size > 1 %>disabled<% end %>>
 </form>
 </body>
 </html>

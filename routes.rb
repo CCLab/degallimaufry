@@ -47,8 +47,19 @@ class Monuments
   property :nid_id, Integer, :key => true
   property :touched, Integer
   property :reviewed, Integer
+  property :edit_counter, Integer
   property :locked, Integer
-  property :categories, Text
+  property :lat, Float
+  property :lon, Float
+end
+
+class Category
+  include DataMapper::Resource
+  storage_names[:default] = 'category'
+  
+  property :nid_id, Integer, :key => true
+  property :value, Text, :key => true
+  property :points, Integer
 end
 
 DataMapper.setup(:results, 'sqlite:dbs/results.db')
@@ -67,6 +78,8 @@ class ResultMonuments
   property :address, Text
   property :date, Text
   property :categories, Text
+  property :lat, Float
+  property :lon, Float
 end
 
 DataMapper.finalize
@@ -75,21 +88,21 @@ DataMapper.auto_upgrade!
 enable :sessions
 
 get '/' do
-  puts "GET==============================================="
-  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60))
+  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60), :edit_counter.gte => 3)
   if @monument != nil
     @monument.update(:locked => Time.now)
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
-    if @addresses.size < 2 && @dates.size < 2 && @names.size < 2
+    @categories = Category.all(:nid_id => @monument.nid_id, :order => [ :points.desc])
+    if @addresses.size < 2 && @dates.size < 2 && @names.size < 2 && @categories.size == 0
       name = ""
       name = @names[0].value unless @names[0] == nil
       address = ""
       address = @addresses[0].value unless @addresses[0] == nil
       date = ""
       date = @dates[0].value unless @dates[0] == nil
-      if ResultMonuments.create(:oz_id => @monument.oz_id, :nid_id => @monument.nid_id, :touched => @monument.touched, :name => name, :address => address, :date => date, :categories => @monument.categories)
+      if ResultMonuments.create(:oz_id => @monument.oz_id, :nid_id => @monument.nid_id, :touched => @monument.touched, :name => name, :address => address, :date => date, :lat => @monument.lat, :lon => @monument.lon)
         @monument.update(:reviewed => 1)
       end
       redirect '/', 307
@@ -115,12 +128,16 @@ get '/:nid_id' do
 end
 
 post '/' do
-  puts "PARAMS: #{params}"
   session[:alert] = ""
   session[:notice] = ""
+  @cats = ""
+  params[:categories].each do |c|
+    @cats += (c+',')
+  end
+  @cats = @cats.slice(0, @cats.length-1)
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
   if @monumentToUpdate != nil
-    if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :date => params[:date], :categories => @monumentToUpdate.categories)
+    if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :date => params[:date], :categories => @cats, :lon => @monumentToUpdate.lon, :lat => @monumentToUpdate.lat)
       @monumentToUpdate.update(:reviewed => 1)
       session[:notice] = "Wszystko poszło OK (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
     else
@@ -131,4 +148,3 @@ post '/' do
     session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
   end
 end
-
