@@ -37,7 +37,8 @@ function parse_file(uploaded) {
                     categories     : row.categories,
                     type           : row.nid_kind,
                     lat            : row.latitude,
-                    lon            : row.longitude
+                    lon            : row.longitude,
+                    gps_action     : row.coordinates_action
                 };
             }
         })
@@ -55,7 +56,7 @@ function parse_file(uploaded) {
                 db.serialize(function () {
                     // add monument singular data: ids, state and categories
                     db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?,?)",
-                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, obj.rev_num, 0.0, 0.0]); 
+                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, obj.rev_num, obj.lat, obj.lon]); 
                                 
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
@@ -121,10 +122,7 @@ function validate(revisions) {
         lon       : 0.0,
         rev_num   : revisions.length - 1
     };
-    // TODO get the best GPS position somehow
-    var tmp_lats = {};
-    var tmp_lons = {};
-
+    
     var score = {
         edit     : 2,
         revision : 1,
@@ -144,6 +142,8 @@ function validate(revisions) {
        
         var categories = !!revision.categories ? revision.categories.split(',') : [];
 
+        var gps_action = revision.gps_action;
+        
         if(!!name.trim()) {
             name  = parse_name(name, revision.type === 'OZ' || revision.type === 'SA');
             result.names[name] = result.names[name] || { points: 0, actions: [] };
@@ -167,6 +167,11 @@ function validate(revisions) {
                 result.cats[category] = (result.cats[category] || 0) + 1;
             });
         }
+        if(gps_action !== 'skip') {
+            result.lon = revision.lon;
+            result.lat = revision.lat;
+        }
+        
     });
 
     return result;
