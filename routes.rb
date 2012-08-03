@@ -47,7 +47,6 @@ class Monuments
   property :nid_id, Integer, :key => true
   property :touched, Integer
   property :reviewed, Integer
-  property :edit_counter, Integer
   property :locked, Integer
   property :lat, Float
   property :lon, Float
@@ -88,7 +87,7 @@ DataMapper.auto_upgrade!
 enable :sessions
 
 get '/' do
-  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60), :edit_counter.gte => 3)
+  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60))
   if @monument != nil
     @monument.update(:locked => Time.now)
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
@@ -121,6 +120,7 @@ get '/:nid_id' do
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @dates = DateProps.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
     @names = Name.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
+    @categories = Category.all(:nid_id => @monument.nid_id, :order => [ :points.desc])
     erb :index
   else
     session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
@@ -131,12 +131,16 @@ post '/' do
   session[:alert] = ""
   session[:notice] = ""
   @cats = ""
+  params[:categories] = params[:categories] || []
   params[:categories].each do |c|
     @cats += (c+',')
   end
   @cats = @cats.slice(0, @cats.length-1)
   @monumentToUpdate = Monuments.first(:nid_id => params[:nid_id])
   if @monumentToUpdate != nil
+    if @m = ResultMonuments.first(:nid_id => params[:nid_id])
+      @m.destroy
+    end
     if ResultMonuments.create(:oz_id => @monumentToUpdate.oz_id, :nid_id => @monumentToUpdate.nid_id, :touched => @monumentToUpdate.touched, :name => params[:name], :address => params[:address], :date => params[:date], :categories => @cats, :lon => @monumentToUpdate.lon, :lat => @monumentToUpdate.lat)
       @monumentToUpdate.update(:reviewed => 1)
       session[:notice] = "Wszystko poszło OK (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
