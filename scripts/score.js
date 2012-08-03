@@ -2,28 +2,44 @@ var csv = require('csv');
 var fs  = require('fs');
 
 var sqlite3 = require('sqlite3').verbose();
-var db = new sqlite3.Database('../dbs/score.db', parse_file);
+var db = new sqlite3.Database('../dbs/score.db', get_uploaded);
 
-function parse_file() {
+function get_uploaded() {
+    db.all('SELECT nid_id FROM monuments', function (err, rows) {
+        var uploaded = {};
+        rows.forEach(function (row) {
+            uploaded[row.nid_id.toString()] = true;
+        });
+        parse_file(uploaded);
+    });
+}
+
+function parse_file(uploaded) {
     var results = {};
 
     console.log('>>> parsing file');
     csv().fromPath('./relics_history.csv', {columns: true})
         .transform(function (row, index) {
-             return {
-                relic_id       : row.relic_id,
-                nid_id         : row.nid_id,
-                name           : row.identification,
-                name_action    : row.identification_action,
-                address        : row.street,
-                address_action : row.street_action,
-                date           : row.dating,
-                date_action    : row.dating_action,
-                categories     : row.categories,
-                type           : row.nid_kind,
-                lat            : row.latitude,
-                lon            : row.longitude
-             };
+            // skip already uploaded
+            if(uploaded.hasOwnProperty(row.nid_id)) {
+                return;
+            }
+            else {
+                return {
+                    relic_id       : row.relic_id,
+                    nid_id         : row.nid_id,
+                    name           : row.identification,
+                    name_action    : row.identification_action,
+                    address        : row.street,
+                    address_action : row.street_action,
+                    date           : row.dating,
+                    date_action    : row.dating_action,
+                    categories     : row.categories,
+                    type           : row.nid_kind,
+                    lat            : row.latitude,
+                    lon            : row.longitude
+                };
+            }
         })
         .on('data', function (row, index) {
             if(!results[row.nid_id]) {
@@ -39,7 +55,7 @@ function parse_file() {
                 db.serialize(function () {
                     // add monument singular data: ids, state and categories
                     db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?,?)",
-                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, 3, 0.0, 0.0]); 
+                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, obj.rev_num, 0.0, 0.0]); 
                                 
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
@@ -68,12 +84,16 @@ function parse_file() {
                 console.log('>>> cleaning up data');
                 db.run('BEGIN');
                 for(key in results) {
-                    insert(validate(results[key]));
+                    // upload only these having more than or 4 revisions (1+3)
+                    if(results[key].length >= 4) {
+                        insert(validate(results[key]));
+                    }
                 }
+
                 console.log('>>> pushing data into db');
                 db.run('COMMIT');
                 // just a simple feedback
-                db.each('select * from monuments where categories is not null limit 5', function (e, r) {
+                db.each('select * from monuments limit 5', function (e, r) {
                     console.log(r);
                 });
                 db.each('select * from name limit 5', function (e, r) {
@@ -98,8 +118,10 @@ function validate(revisions) {
         addresses : {},
         dates     : {},
         lat       : 0.0,
-        lon       : 0.0
+        lon       : 0.0,
+        rev_num   : revisions.length - 1
     };
+    // TODO get the best GPS position somehow
     var tmp_lats = {};
     var tmp_lons = {};
 
