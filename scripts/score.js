@@ -61,17 +61,17 @@ function parse_file(uploaded) {
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
                         db.run("INSERT INTO name VALUES(?,?,?,?)", 
-                               [obj.nid_id, value, obj.names[value].actions.join(','), obj.names[value].points]);
+                               [obj.nid_id, value, obj.names[value].actions.join(', '), obj.names[value].points]);
                     }};
                     // add addresses
                     for(value in obj.addresses) { if(obj.addresses.hasOwnProperty(value)) {
                         db.run("INSERT INTO address VALUES(?,?,?,?)",
-                               [obj.nid_id, value, obj.addresses[value].actions.join(','), obj.addresses[value].points ]);
+                               [obj.nid_id, value, obj.addresses[value].actions.join(', '), obj.addresses[value].points ]);
                     }};
                     // add dates
                     for(value in obj.dates) { if(obj.dates.hasOwnProperty(value)) {
                         db.run("INSERT INTO date VALUES(?,?,?,?)",
-                               [obj.nid_id, value, obj.dates[value].actions.join(','), obj.dates[value].points ]);
+                               [obj.nid_id, value, obj.dates[value].actions.join(', '), obj.dates[value].points ]);
                     }};
                     // add categories
                     for(value in obj.cats) { if(obj.cats.hasOwnProperty(value)) {
@@ -129,6 +129,12 @@ function validate(revisions) {
         confirm  : 1,
         skip     : 0
     };
+    var actions = {
+        revision : 'oryginalne',
+        confirm  : 'potwierdzenie',
+        edit     : 'edycja',
+        skip     : 'pominięcie'
+    };
 
     revisions.forEach(function (revision) {
         var name        = revision.name || '';
@@ -141,33 +147,32 @@ function validate(revisions) {
         var date_action = revision.date_action;
        
         var categories = !!revision.categories ? revision.categories.split(',') : [];
-
-        var gps_action = revision.gps_action;
         
         if(!!name.trim()) {
             name  = parse_name(name, revision.type === 'OZ' || revision.type === 'SA');
             result.names[name] = result.names[name] || { points: 0, actions: [] };
             result.names[name].points = (result.names[name].points || 0) + score[name_action];
-            result.names[name].actions.push(name_action);
+            result.names[name].actions.push(actions[name_action]);
         }
         if(!!address.trim()) {
             address = parse_address(address);
             result.addresses[address] = result.addresses[address] || { points: 0, actions: [] };
             result.addresses[address].points = (result.addresses[address].points || 0) + score[address_action];
-            result.addresses[address].actions.push(address_action);
+            result.addresses[address].actions.push(actions[address_action]);
         }
         if(!!date.trim()) {
             date = parse_date(date);
             result.dates[date] = result.dates[date] || { points: 0, actions: [] };
             result.dates[date].points = (result.dates[date].points || 0) + score[date_action];
-            result.dates[date].actions.push(date_action);
+            result.dates[date].actions.push(actions[date_action]);
         }
         if(!!categories.length) {
             categories.forEach(function (category) {
                 result.cats[category] = (result.cats[category] || 0) + 1;
             });
         }
-        if(gps_action !== 'skip') {
+        // TODO score it
+        if(revision.gps_action !== 'skip') {
             result.lon = revision.lon;
             result.lat = revision.lat;
         }
