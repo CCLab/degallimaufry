@@ -92,8 +92,12 @@ jQuery(document).ready(function(){
   <label><input type="checkbox" name="categories[]" id="<%= category.value %>" value="<%= category.value %>"><%= category.value %></label> (<%= category.points %>)
   <% end %>
 <% end %>
-
+</br>
 <input type="submit" value="Zapisz i dawaj dalej!" id="submit" <% if @names.size > 1 || @dates.size > 1 || @addresses.size > 1 %>disabled<% end %>>
+</form>
+<form name="next" action="/endOfQueue" method="POST">
+<input type="hidden" name="nid_id" value="<%= @monument.nid_id %>">
+<input type="submit" value="Pomiń">
 </form>
 </body>
 </html>
