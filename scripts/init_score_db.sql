@@ -1,4 +1,5 @@
 CREATE TABLE monuments(
+    id           INTEGER,
     oz_id        INTEGER,     
     nid_id       INTEGER,     
     touched      INTEGER,     
