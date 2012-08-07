@@ -17,7 +17,13 @@ input {
   border-radius: 5px;
 }
 
+input[type=text] {
+  width: 400px;
+}
+
 #progressBar{
+  margin-top: 20px;
+  border-radius: 5px;
   width: 0px;
   height: 10px;
   background-color: green;
@@ -63,11 +69,11 @@ jQuery(document).ready(function(){
 <h3>Nazwa:</h3>
 <% @names.each do |name| %>
   <% if @names.size == 1 %>
-  <input type="radio" name="name_b" id="name<%= name.to_s.slice(9, 7) %>" value="<%= name.value %>" checked disabled><span class="name_b"><input type="text" name="name" value="<%= name.value %>"></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
+  <input type="radio" name="name_b" id="name<%= name.to_s.slice(9, 7) %>" value="<%= name.value %>" checked disabled><span class="name_b"><input type="text" name="name" value="<%= name.value %>"></span><br /><span style="margin-left: 25px;"> (Historia: <%= name.actions %>, <%= name.points %> punktów)</span></br>
   <% elsif name == @names[0] && @names[0].points > @names[1].points+1 %>
-  <input type="radio" name="name_b" id="name<%= name.to_s.slice(9, 7) %>" value="<%= name.value %>" checked><span class="name_b name<%= name.to_s.slice(9, 7) %>"><label class="name_b name<%= name.to_s.slice(9, 7) %>" for="name<%= name.to_s.slice(9, 7) %>" style="display:none;"><%= name.value %></label> <input type="text" name="name" value="<%= name.value %>"></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
+  <input type="radio" name="name_b" id="name<%= name.to_s.slice(9, 7) %>" value="<%= name.value %>" checked><span class="name_b name<%= name.to_s.slice(9, 7) %>"><label class="name_b name<%= name.to_s.slice(9, 7) %>" for="name<%= name.to_s.slice(9, 7) %>" style="display:none;"><%= name.value %></label> <input type="text" name="name" value="<%= name.value %>"></span><br /><span style="margin-left: 25px;">(Historia: <%= name.actions %>, <%= name.points %> punktów)</span><br/>
   <% else %>
-  <input type="radio" name="name_b" id="name<%= name.to_s.slice(9, 7) %>" value="<%= name.value %>" ><span class="name_b name<%= name.to_s.slice(9, 7) %>"><label class="name_b name<%= name.to_s.slice(9, 7) %>" for="name<%= name.to_s.slice(9, 7) %>"><%= name.value %></label></span> (Historia: <%= name.actions %>, <%= name.points %> punktów)</br>
+  <input type="radio" name="name_b" id="name<%= name.to_s.slice(9, 7) %>" value="<%= name.value %>" ><span class="name_b name<%= name.to_s.slice(9, 7) %>"><label class="name_b name<%= name.to_s.slice(9, 7) %>" for="name<%= name.to_s.slice(9, 7) %>"><%= name.value %></label></span><br /><span style="margin-left: 25px;">(Historia: <%= name.actions %>, <%= name.points %> punktów)</span><br/>
   <% end %>
 <% end %>
 <% if @names.size == 0 %>
@@ -76,11 +82,11 @@ jQuery(document).ready(function(){
 <h3>Adres:</h3>
 <% @addresses.each do |address| %>
   <% if @addresses.size == 1 %>
-  <input type="radio" name="address_b" id="address<%= address.to_s.slice(12, 7) %>" value="<%= address.value %>" checked disabled><span class="address_b"><input type="text" name="address" value="<%= address.value %>"></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
+  <input type="radio" name="address_b" id="address<%= address.to_s.slice(12, 7) %>" value="<%= address.value %>" checked disabled><span class="address_b"><input type="text" name="address" value="<%= address.value %>"></span><br /><span style="margin-left: 25px;"> (Historia: <%= address.actions %>, <%= address.points %> punktów)</span></br>
   <% elsif address == @addresses[0] && @addresses[0].points > @addresses[1].points+1 %>
-  <input type="radio" name="address_b" id="address<%= address.to_s.slice(12, 7) %>" value="<%= address.value %>" checked><span class="address_b address<%= address.to_s.slice(12, 7) %>"><label class="address_b address<%= address.to_s.slice(12, 7) %>" for="address<%= address.to_s.slice(12, 7) %>" style="display:none;"><%= address.value %></label> <input type="text" name="address" value="<%= address.value %>"></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
+  <input type="radio" name="address_b" id="address<%= address.to_s.slice(12, 7) %>" value="<%= address.value %>" checked><span class="address_b address<%= address.to_s.slice(12, 7) %>"><label class="address_b address<%= address.to_s.slice(12, 7) %>" for="address<%= address.to_s.slice(12, 7) %>" style="display:none;"><%= address.value %></label> <input type="text" name="address" value="<%= address.value %>"></span><br /><span style="margin-left: 25px;"> (Historia: <%= address.actions %>, <%= address.points %> punktów)</span><br/>
   <% else %>
-  <input type="radio" name="address_b" id="address<%= address.to_s.slice(12, 7) %>" value="<%= address.value %>" ><span class="address_b address<%= address.to_s.slice(12, 7) %>"><label class="address_b address<%= address.to_s.slice(12, 7) %>" for="address<%= address.to_s.slice(12, 7) %>"><%= address.value %></label></span> (Historia: <%= address.actions %>, <%= address.points %> punktów)</br>
+  <input type="radio" name="address_b" id="address<%= address.to_s.slice(12, 7) %>" value="<%= address.value %>" ><span class="address_b address<%= address.to_s.slice(12, 7) %>"><label class="address_b address<%= address.to_s.slice(12, 7) %>" for="address<%= address.to_s.slice(12, 7) %>"><%= address.value %></label></span><br /><span style="margin-left: 25px;"> (Historia: <%= address.actions %>, <%= address.points %> punktów)</span><br/>
   <% end %>
 <% end %>
 <% if @addresses.size == 0 %>
@@ -89,11 +95,11 @@ jQuery(document).ready(function(){
 <h3>Data:</h3>
 <% @dates.each do |date| %>
   <% if @dates.size == 1 %>
-  <input type="radio" name="date_b" id="date<%= date.to_s.slice(14, 7) %>" value="<%= date.value %>" checked disabled><span class="date_b"><input type="text" name="date" value="<%= date.value %>"></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
+  <input type="radio" name="date_b" id="date<%= date.to_s.slice(14, 7) %>" value="<%= date.value %>" checked disabled><span class="date_b"><input type="text" name="date" value="<%= date.value %>"></span><br /><span style="margin-left: 25px;"> (Historia: <%= date.actions %>, <%= date.points %> punktów)</span></br>
   <% elsif date == @dates[0] && @dates[0].points > @dates[1].points+1 %>
-  <input type="radio" name="date_b" id="date<%= date.to_s.slice(14, 7) %>" value="<%= date.value %>" checked><span class="date_b date<%= date.to_s.slice(14, 7) %>"><label class="date_b date<%= date.to_s.slice(14, 7) %>" for="date<%= date.to_s.slice(14, 7) %>" style="display:none;"><%= date.value %></label> <input type="text" name="date" value="<%= date.value %>"></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
+  <input type="radio" name="date_b" id="date<%= date.to_s.slice(14, 7) %>" value="<%= date.value %>" checked><span class="date_b date<%= date.to_s.slice(14, 7) %>"><label class="date_b date<%= date.to_s.slice(14, 7) %>" for="date<%= date.to_s.slice(14, 7) %>" style="display:none;"><%= date.value %></label> <input type="text" name="date" value="<%= date.value %>"></span><br /><span style="margin-left: 25px;"> (Historia: <%= date.actions %>, <%= date.points %> punktów)</span><br/>
   <% else %>
-  <input type="radio" name="date_b" id="date<%= date.to_s.slice(14, 7) %>" value="<%= date.value %>" ><span class="date_b date<%= date.to_s.slice(14, 7) %>"><label class="date_b date<%= date.to_s.slice(14, 7) %>" for="date<%= date.to_s.slice(14, 7) %>"><%= date.value %></label></span> (Historia: <%= date.actions %>, <%= date.points %> punktów)</br>
+  <input type="radio" name="date_b" id="date<%= date.to_s.slice(14, 7) %>" value="<%= date.value %>" ><span class="date_b date<%= date.to_s.slice(14, 7) %>"><label class="date_b date<%= date.to_s.slice(14, 7) %>" for="date<%= date.to_s.slice(14, 7) %>"><%= date.value %></label></span><br /><span style="margin-left: 25px;"> (Historia: <%= date.actions %>, <%= date.points %> punktów)</span><br/>
   <% end %>
 <% end %>
 <% if @dates.size == 0 %>
