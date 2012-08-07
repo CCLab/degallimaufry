@@ -16,6 +16,12 @@ input {
   padding: 5px;
   border-radius: 5px;
 }
+
+#progressBar{
+  width: 0px;
+  height: 10px;
+  background-color: green;
+}
 </style>
 </head>
 <body>
@@ -34,12 +40,21 @@ jQuery(document).ready(function(){
            $('#submit').removeAttr('disabled'); 
         }
     });
+    jQuery('#showProgress').click(function(){
+      $('#progressBar').css('width', 100 * (<%= Monuments.all(:reviewed => 1).length %>/<%= Monuments.all.length %>) + '%');
+      $(this).css('display', 'none');
+    });
     if( $('input[name="name"]').length > 0 && $('input[name="date"]').length > 0 && $('input[name="address"]').length > 0 ){
         $('#submit').removeAttr('disabled');
     }
 });
 
 </script>
+<div id="progressBar">
+</div>
+<div id="progressButton">
+  <input type="submit" id="showProgress" value="Pokaż postęp">
+</div>
 <div id="alert"><%= session[:alert] %></div>
 <div id="notice"><%= session[:notice] %></div>
 <h1>Nid_id: <%= @monument.nid_id %></h1>
