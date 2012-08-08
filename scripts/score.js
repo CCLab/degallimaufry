@@ -51,12 +51,13 @@ function parse_file(uploaded) {
         .on('end', function (count) {
             var key;
             var data;
+            var id_counter = 0;
             var insert = function (obj) {
                 // add monument object
                 db.serialize(function () {
                     // add monument singular data: ids, state and categories
-                    db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?,?)",
-                           [obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, obj.rev_num, obj.lat, obj.lon]); 
+                    db.run("INSERT INTO monuments VALUES(?,?,?,?,?,?,?,?,?)",
+                           [id_counter, obj.oz_id, obj.nid_id, !!obj.touched ? 1 : 0, 0, 0, obj.rev_num, obj.lat, obj.lon]); 
                                 
                     // add names
                     for(value in obj.names) { if(obj.names.hasOwnProperty(value)) {
@@ -79,6 +80,7 @@ function parse_file(uploaded) {
                                [obj.nid_id, value, obj.cats[value] ]);
                     }};
                 });
+                id_counter += 1;
             };
 
             db.serialize(function () {

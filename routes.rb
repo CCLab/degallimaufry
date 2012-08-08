@@ -45,6 +45,7 @@ class Monuments
   
   property :oz_id, Integer
   property :nid_id, Integer, :key => true
+  property :id, Integer
   property :touched, Integer
   property :reviewed, Integer
   property :locked, Integer
@@ -87,7 +88,7 @@ DataMapper.auto_upgrade!
 enable :sessions
 
 get '/' do
-  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60))
+  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60), :order => :id)
   if @monument != nil
     @monument.update(:locked => Time.now)
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
@@ -147,6 +148,19 @@ post '/' do
     else
       session[:alert] = "Coś poszło nie tak (nid: <a href=\"/#{@monumentToUpdate.nid_id}\">#{@monumentToUpdate.nid_id}</a>)"
     end
+    redirect to('/')
+  else
+    session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
+  end
+end
+
+post '/endOfQueue' do
+  session[:alert] = ""
+  session[:notice] = ""
+  @monument = Monuments.first(:nid_id => params[:nid_id])
+  if @monument != nil
+    @monument.update(:id => (Monuments.first(:order => [ :id.desc ]).id)+1 )
+    session[:notice] = "Wszystko poszło OK (nid: <a href=\"/#{@monument.nid_id}\">#{@monument.nid_id}</a>)"
     redirect to('/')
   else
     session[:alert] = "Nie znaleziono zabytku o podanym nid_id: #{params[:nid_id]}"
