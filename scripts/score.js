@@ -195,7 +195,7 @@ function parse_name(name, single) {
             name = strip(match[1]) + (match[3] ? ', ' + strip(match[3]) : '');
         }
     }
-    return name;
+    return strip(name);
 }
 
 // converts address into address object
@@ -233,7 +233,7 @@ function parse_address(address) {
 
 function parse_date(date) {
     // code here
-    return date;
+    return strip(date);
 }
 
 
