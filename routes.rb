@@ -88,7 +88,7 @@ DataMapper.auto_upgrade!
 enable :sessions
 
 get '/' do
-  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(5*60), :order => :id)
+  @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(30*60), :order => :id)
   if @monument != nil
     @monument.update(:locked => Time.now)
     @addresses = Address.all(:nid_id => @monument.nid_id, :order => [ :points.desc ])
