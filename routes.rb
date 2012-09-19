@@ -87,6 +87,11 @@ DataMapper.auto_upgrade!
 
 enable :sessions
 
+helpers do
+  include Rack::Utils
+  alias_method :h, :escape_html
+end
+
 get '/' do
   @monument = Monuments.first(:touched => 1, :reviewed => 0, :locked.lt => Time.now-(30*60), :order => :id)
   if @monument != nil
