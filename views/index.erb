@@ -80,7 +80,7 @@ jQuery(document).ready(function(){
 <input type="hidden" name="name" value="">
 <% end %>
 <h3>Miasto:</h3>
-<p><%= Cities.first(:nid_id => params[:nid_id]).city unless Cities.first(:nid_id => params[:nid_id]) == nil %></p>
+<p><%= Cities.first(:nid_id => @monument.nid_id).city %></p>
 <h3>Adres:</h3>
 <% @addresses.each do |address| %>
   <% if @addresses.size == 1 %>
