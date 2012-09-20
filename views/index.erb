@@ -79,6 +79,8 @@ jQuery(document).ready(function(){
 <% if @names.size == 0 %>
 <input type="hidden" name="name" value="">
 <% end %>
+<h3>Miasto:</h3>
+<p><%= Cities.first(:nid_id => params[:nid_id]).city unless Cities.first(:nid_id => params[:nid_id]) == nil %></p>
 <h3>Adres:</h3>
 <% @addresses.each do |address| %>
   <% if @addresses.size == 1 %>

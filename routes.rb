@@ -82,6 +82,19 @@ class ResultMonuments
   property :lon, Float
 end
 
+DataMapper.setup(:cities, 'sqlite:dbs/cities.db')
+
+class Cities
+  include DataMapper::Resource
+    def self.default_repository_name
+    :cities
+  end
+  storage_names[:cities] = 'cities'
+  
+  property :city, Text
+  property :nid_id, Integer, :key => true
+end
+
 DataMapper.finalize
 DataMapper.auto_upgrade!
 
