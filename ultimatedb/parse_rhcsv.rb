@@ -94,7 +94,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
                      :coordinates_approval => false)
   elsif line[21] == "edit" || line[21] == "confirm"
     @m = Monuments.first(:id => line[2])
-    @m.update(:coordinates_action => true)
+    @m.update(:coordinates_approval => true)
   end
 end
 
