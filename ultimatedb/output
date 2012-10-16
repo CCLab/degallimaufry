@@ -1,0 +1,659 @@
+02 DOLNOŚLĄSKIE
+0201 bolesławiecki
+0201011 Bolesławiec
+0201022 Bolesławiec
+0201032 Gromadka
+0201043 Nowogrodziec
+0201044 Nowogrodziec
+0201045 Nowogrodziec
+0201052 Osiecznica
+0201062 Warta Bolesławiecka
+0202 dzierżoniowski
+0202011 Bielawa
+0202021 Dzierżoniów
+0202031 Pieszyce
+0202041 Piława Górna
+0202052 Dzierżoniów
+0202062 Łagiewniki
+0202073 Niemcza
+0202074 Niemcza
+0202075 Niemcza
+0203 głogowski
+0203011 Głogów
+0203022 Głogów
+0203032 Jerzmanowa
+0203042 Kotla
+0203052 Pęcław
+0203062 Żukowice
+0204 górowski
+0204013 Góra
+0204014 Góra
+0204015 Góra
+0204022 Jemielno
+0204032 Niechlów
+0204043 Wąsosz
+0204044 Wąsosz
+0204045 Wąsosz
+0205 jaworski
+0205011 Jawor
+0205023 Bolków
+0205024 Bolków
+0205025 Bolków
+0205032 Męcinka
+0205042 Mściwojów
+0205052 Paszowice
+0205062 Wądroże Wielkie
+0206 jeleniogórski
+0206011 Karpacz
+0206021 Kowary
+0206031 Piechowice
+0206041 Szklarska Poręba
+0206052 Janowice Wielkie
+0206062 Jeżów Sudecki
+0206072 Mysłakowice
+0206082 Podgórzyn
+0206092 Stara Kamienica
+0207 kamiennogórski
+0207011 Kamienna Góra
+0207022 Kamienna Góra
+0207033 Lubawka
+0207034 Lubawka
+0207035 Lubawka
+0207042 Marciszów
+0208 kłodzki
+0208011 Duszniki-Zdrój
+0208021 Kłodzko
+0208031 Kudowa-Zdrój
+0208041 Nowa Ruda
+0208051 Polanica-Zdrój
+0208063 Bystrzyca Kłodzka
+0208064 Bystrzyca Kłodzka
+0208065 Bystrzyca Kłodzka
+0208072 Kłodzko
+0208083 Lądek-Zdrój
+0208084 Lądek-Zdrój
+0208085 Lądek-Zdrój
+0208092 Lewin Kłodzki
+0208103 Międzylesie
+0208104 Międzylesie
+0208105 Międzylesie
+0208112 Nowa Ruda
+0208123 Radków
+0208124 Radków
+0208125 Radków
+0208133 Stronie Śląskie
+0208134 Stronie Śląskie
+0208135 Stronie Śląskie
+0208143 Szczytna
+0208144 Szczytna
+0208145 Szczytna
+0209 legnicki
+0209011 Chojnów
+0209022 Chojnów
+0209032 Krotoszyce
+0209042 Kunice
+0209052 Legnickie Pole
+0209062 Miłkowice
+0209073 Prochowice
+0209074 Prochowice
+0209075 Prochowice
+0209082 Ruja
+0210 lubański
+0210011 Lubań
+0210021 Świeradów-Zdrój
+0210033 Leśna
+0210034 Leśna
+0210035 Leśna
+0210042 Lubań
+0210053 Olszyna
+0210054 Olszyna
+0210055 Olszyna
+0210062 Platerówka
+0210072 Siekierczyn
+0211 lubiński
+0211011 Lubin
+0211022 Lubin
+0211032 Rudna
+0211043 Ścinawa
+0211044 Ścinawa
+0211045 Ścinawa
+0212 lwówecki
+0212013 Gryfów Śląski
+0212014 Gryfów Śląski
+0212015 Gryfów Śląski
+0212023 Lubomierz
+0212024 Lubomierz
+0212025 Lubomierz
+0212033 Lwówek Śląski
+0212034 Lwówek Śląski
+0212035 Lwówek Śląski
+0212043 Mirsk
+0212044 Mirsk
+0212045 Mirsk
+0212053 Wleń
+0212054 Wleń
+0212055 Wleń
+0213 milicki
+0213012 Cieszków
+0213022 Krośnice
+0213033 Milicz
+0213034 Milicz
+0213035 Milicz
+0214 oleśnicki
+0214011 Oleśnica
+0214023 Bierutów
+0214024 Bierutów
+0214025 Bierutów
+0214032 Dobroszyce
+0214042 Dziadowa Kłoda
+0214053 Międzybórz
+0214054 Międzybórz
+0214055 Międzybórz
+0214062 Oleśnica
+0214073 Syców
+0214074 Syców
+0214075 Syców
+0214083 Twardogóra
+0214084 Twardogóra
+0214085 Twardogóra
+0215 oławski
+0215011 Oława
+0215022 Domaniów
+0215033 Jelcz-Laskowice
+0215034 Jelcz-Laskowice
+0215035 Jelcz-Laskowice
+0215042 Oława
+0216 polkowicki
+0216013 Chocianów
+0216014 Chocianów
+0216015 Chocianów
+0216022 Gaworzyce
+0216032 Grębocice
+0216043 Polkowice
+0216044 Polkowice
+0216045 Polkowice
+0216053 Przemków
+0216054 Przemków
+0216055 Przemków
+0216062 Radwanice
+0217 strzeliński
+0217012 Borów
+0217022 Kondratowice
+0217032 Przeworno
+0217043 Strzelin
+0217044 Strzelin
+0217045 Strzelin
+0217053 Wiązów
+0217054 Wiązów
+0217055 Wiązów
+0218 średzki
+0218012 Kostomłoty
+0218022 Malczyce
+0218032 Miękinia
+0218043 Środa Śląska
+0218044 Środa Śląska
+0218045 Środa Śląska
+0218052 Udanin
+0219 świdnicki
+0219011 Świdnica
+0219021 Świebodzice
+0219032 Dobromierz
+0219043 Jaworzyna Śląska
+0219044 Jaworzyna Śląska
+0219045 Jaworzyna Śląska
+0219052 Marcinowice
+0219063 Strzegom
+0219064 Strzegom
+0219065 Strzegom
+0219072 Świdnica
+0219083 Żarów
+0219084 Żarów
+0219085 Żarów
+0220 trzebnicki
+0220013 Oborniki Śląskie
+0220014 Oborniki Śląskie
+0220015 Oborniki Śląskie
+0220023 Prusice
+0220024 Prusice
+0220025 Prusice
+0220033 Trzebnica
+0220034 Trzebnica
+0220035 Trzebnica
+0220042 Wisznia Mała
+0220052 Zawonia
+0220063 Żmigród
+0220064 Żmigród
+0220065 Żmigród
+0221 wałbrzyski
+0221011 Boguszów-Gorce
+0221021 Jedlina-Zdrój
+0221031 Szczawno-Zdrój
+0221042 Czarny Bór
+0221053 Głuszyca
+0221054 Głuszyca
+0221055 Głuszyca
+0221063 Mieroszów
+0221064 Mieroszów
+0221065 Mieroszów
+0221072 Stare Bogaczowice
+0221082 Walim
+0221091 Wałbrzych
+0222 wołowski
+0222013 Brzeg Dolny
+0222014 Brzeg Dolny
+0222015 Brzeg Dolny
+0222022 Wińsko
+0222033 Wołów
+0222034 Wołów
+0222035 Wołów
+0223 wrocławski
+0223012 Czernica
+0223022 Długołęka
+0223032 Jordanów Śląski
+0223043 Kąty Wrocławskie
+0223044 Kąty Wrocławskie
+0223045 Kąty Wrocławskie
+0223052 Kobierzyce
+0223062 Mietków
+0223073 Sobótka
+0223074 Sobótka
+0223075 Sobótka
+0223083 Siechnice
+0223084 Siechnice
+0223085 Siechnice
+0223092 Żórawina
+0224 ząbkowicki
+0224013 Bardo
+0224014 Bardo
+0224015 Bardo
+0224022 Ciepłowody
+0224032 Kamieniec Ząbkowicki
+0224042 Stoszowice
+0224053 Ząbkowice Śląskie
+0224054 Ząbkowice Śląskie
+0224055 Ząbkowice Śląskie
+0224063 Ziębice
+0224064 Ziębice
+0224065 Ziębice
+0224073 Złoty Stok
+0224074 Złoty Stok
+0224075 Złoty Stok
+0225 zgorzelecki
+0225011 Zawidów
+0225021 Zgorzelec
+0225033 Bogatynia
+0225034 Bogatynia
+0225035 Bogatynia
+0225043 Pieńsk
+0225044 Pieńsk
+0225045 Pieńsk
+0225052 Sulików
+0225063 Węgliniec
+0225064 Węgliniec
+0225065 Węgliniec
+0225072 Zgorzelec
+0226 złotoryjski
+0226011 Wojcieszów
+0226021 Złotoryja
+0226032 Pielgrzymka
+0226043 Świerzawa
+0226044 Świerzawa
+0226045 Świerzawa
+0226052 Zagrodno
+0226062 Złotoryja
+0261 Jelenia Góra
+0261011 Jelenia Góra
+0262 Legnica
+0262011 Legnica
+0264 Wrocław
+0264011 Wrocław
+0264029 Wrocław-Fabryczna
+0264039 Wrocław-Krzyki
+0264049 Wrocław-Psie Pole
+0264059 Wrocław-Stare Miasto
+0264069 Wrocław-Śródmieście
+04 KUJAWSKO-POMORSKIE
+0401 aleksandrowski
+0401011 Aleksandrów Kujawski
+0401021 Ciechocinek
+0401031 Nieszawa
+0401042 Aleksandrów Kujawski
+0401052 Bądkowo
+0401062 Koneck
+0401072 Raciążek
+0401082 Waganiec
+0401092 Zakrzewo
+0402 brodnicki
+0402011 Brodnica
+0402022 Bobrowo
+0402032 Brodnica
+0402042 Brzozie
+0402053 Górzno
+0402054 Górzno
+0402055 Górzno
+0402062 Bartniczka
+0402073 Jabłonowo Pomorskie
+0402074 Jabłonowo Pomorskie
+0402075 Jabłonowo Pomorskie
+0402082 Osiek
+0402092 Świedziebnia
+0402102 Zbiczno
+0403 bydgoski
+0403012 Białe Błota
+0403022 Dąbrowa Chełmińska
+0403032 Dobrcz
+0403043 Koronowo
+0403044 Koronowo
+0403045 Koronowo
+0403052 Nowa Wieś Wielka
+0403062 Osielsko
+0403072 Sicienko
+0403083 Solec Kujawski
+0403084 Solec Kujawski
+0403085 Solec Kujawski
+0404 chełmiński
+0404011 Chełmno
+0404022 Chełmno
+0404032 Kijewo Królewskie
+0404042 Lisewo
+0404052 Papowo Biskupie
+0404062 Stolno
+0404072 Unisław
+0405 golubsko-dobrzyński
+0405011 Golub-Dobrzyń
+0405022 Ciechocin
+0405032 Golub-Dobrzyń
+0405043 Kowalewo Pomorskie
+0405044 Kowalewo Pomorskie
+0405045 Kowalewo Pomorskie
+0405052 Radomin
+0405062 Zbójno
+0406 grudziądzki
+0406012 Grudziądz
+0406022 Gruta
+0406033 Łasin
+0406034 Łasin
+0406035 Łasin
+0406043 Radzyń Chełmiński
+0406044 Radzyń Chełmiński
+0406045 Radzyń Chełmiński
+0406052 Rogóźno
+0406062 Świecie nad Osą
+0407 inowrocławski
+0407011 Inowrocław
+0407022 Dąbrowa Biskupia
+0407033 Gniewkowo
+0407034 Gniewkowo
+0407035 Gniewkowo
+0407042 Inowrocław
+0407053 Janikowo
+0407054 Janikowo
+0407055 Janikowo
+0407063 Kruszwica
+0407064 Kruszwica
+0407065 Kruszwica
+0407073 Pakość
+0407074 Pakość
+0407075 Pakość
+0407082 Rojewo
+0407092 Złotniki Kujawskie
+0408 lipnowski
+0408011 Lipno
+0408022 Bobrowniki
+0408032 Chrostkowo
+0408043 Dobrzyń nad Wisłą
+0408044 Dobrzyń nad Wisłą
+0408045 Dobrzyń nad Wisłą
+0408052 Kikół
+0408062 Lipno
+0408073 Skępe
+0408074 Skępe
+0408075 Skępe
+0408082 Tłuchowo
+0408092 Wielgie
+0409 mogileński
+0409012 Dąbrowa
+0409022 Jeziora Wielkie
+0409033 Mogilno
+0409034 Mogilno
+0409035 Mogilno
+0409043 Strzelno
+0409044 Strzelno
+0409045 Strzelno
+0410 nakielski
+0410013 Kcynia
+0410014 Kcynia
+0410015 Kcynia
+0410023 Mrocza
+0410024 Mrocza
+0410025 Mrocza
+0410033 Nakło nad Notecią
+0410034 Nakło nad Notecią
+0410035 Nakło nad Notecią
+0410042 Sadki
+0410053 Szubin
+0410054 Szubin
+0410055 Szubin
+0411 radziejowski
+0411011 Radziejów
+0411022 Bytoń
+0411032 Dobre
+0411042 Osięciny
+0411053 Piotrków Kujawski
+0411054 Piotrków Kujawski
+0411055 Piotrków Kujawski
+0411062 Radziejów
+0411072 Topólka
+0412 rypiński
+0412011 Rypin
+0412022 Brzuze
+0412032 Rogowo
+0412042 Rypin
+0412052 Skrwilno
+0412062 Wąpielsk
+0413 sępoleński
+0413013 Kamień Krajeński
+0413014 Kamień Krajeński
+0413015 Kamień Krajeński
+0413023 Sępólno Krajeńskie
+0413024 Sępólno Krajeńskie
+0413025 Sępólno Krajeńskie
+0413032 Sośno
+0413043 Więcbork
+0413044 Więcbork
+0413045 Więcbork
+0414 świecki
+0414012 Bukowiec
+0414022 Dragacz
+0414032 Drzycim
+0414042 Jeżewo
+0414052 Lniano
+0414063 Nowe
+0414064 Nowe
+0414065 Nowe
+0414072 Osie
+0414082 Pruszcz
+0414093 Świecie
+0414094 Świecie
+0414095 Świecie
+0414102 Świekatowo
+0414112 Warlubie
+0415 toruński
+0415011 Chełmża
+0415022 Chełmża
+0415032 Czernikowo
+0415042 Lubicz
+0415052 Łubianka
+0415062 Łysomice
+0415072 Obrowo
+0415082 Wielka Nieszawka
+0415092 Zławieś Wielka
+0416 tucholski
+0416012 Cekcyn
+0416022 Gostycyn
+0416032 Kęsowo
+0416042 Lubiewo
+0416052 Śliwice
+0416063 Tuchola
+0416064 Tuchola
+0416065 Tuchola
+0417 wąbrzeski
+0417011 Wąbrzeźno
+0417022 Dębowa Łąka
+0417032 Książki
+0417042 Płużnica
+0417052 Wąbrzeźno
+0418 włocławski
+0418011 Kowal
+0418022 Baruchowo
+0418032 Boniewo
+0418043 Brześć Kujawski
+0418044 Brześć Kujawski
+0418045 Brześć Kujawski
+0418052 Choceń
+0418063 Chodecz
+0418064 Chodecz
+0418065 Chodecz
+0418072 Fabianki
+0418083 Izbica Kujawska
+0418084 Izbica Kujawska
+0418085 Izbica Kujawska
+0418092 Kowal
+0418102 Lubanie
+0418113 Lubień Kujawski
+0418114 Lubień Kujawski
+0418115 Lubień Kujawski
+0418123 Lubraniec
+0418124 Lubraniec
+0418125 Lubraniec
+0418132 Włocławek
+0419 żniński
+0419013 Barcin
+0419014 Barcin
+0419015 Barcin
+0419022 Gąsawa
+0419033 Janowiec Wielkopolski
+0419034 Janowiec Wielkopolski
+0419035 Janowiec Wielkopolski
+0419043 Łabiszyn
+0419044 Łabiszyn
+0419045 Łabiszyn
+0419052 Rogowo
+0419063 Żnin
+0419064 Żnin
+0419065 Żnin
+0461 Bydgoszcz
+0461011 Bydgoszcz
+0462 Grudziądz
+0462011 Grudziądz
+0463 Toruń
+0463011 Toruń
+0464 Włocławek
+0464011 Włocławek
+06 LUBELSKIE
+0601 bialski
+0601011 Międzyrzec Podlaski
+0601021 Terespol
+0601032 Biała Podlaska
+0601042 Drelów
+0601052 Janów Podlaski
+0601062 Kodeń
+0601072 Konstantynów
+0601082 Leśna Podlaska
+0601092 Łomazy
+0601102 Międzyrzec Podlaski
+0601112 Piszczac
+0601122 Rokitno
+0601132 Rossosz
+0601142 Sławatycze
+0601152 Sosnówka
+0601162 Terespol
+0601172 Tuczna
+0601182 Wisznice
+0601192 Zalesie
+0602 biłgorajski
+0602011 Biłgoraj
+0602022 Aleksandrów
+0602032 Biłgoraj
+0602042 Biszcza
+0602053 Frampol
+0602054 Frampol
+0602055 Frampol
+0602062 Goraj
+0602073 Józefów
+0602074 Józefów
+0602075 Józefów
+0602082 Księżpol
+0602092 Łukowa
+0602102 Obsza
+0602112 Potok Górny
+0602123 Tarnogród
+0602124 Tarnogród
+0602125 Tarnogród
+0602132 Tereszpol
+0602142 Turobin
+0603 chełmski
+0603011 Rejowiec Fabryczny
+0603022 Białopole
+0603032 Chełm
+0603042 Dorohusk
+0603052 Dubienka
+0603062 Kamień
+0603072 Leśniowice
+0603082 Rejowiec Fabryczny
+0603092 Ruda-Huta
+0603102 Sawin
+0603112 Siedliszcze
+0603122 Wierzbica
+0603132 Wojsławice
+0603142 Żmudź
+0603152 Rejowiec
+0604 hrubieszowski
+0604011 Hrubieszów
+0604022 Dołhobyczów
+0604032 Horodło
+0604042 Hrubieszów
+0604052 Mircze
+0604062 Trzeszczany
+0604072 Uchanie
+0604082 Werbkowice
+0605 janowski
+0605012 Batorz
+0605022 Chrzanów
+0605032 Dzwola
+0605042 Godziszów
+0605053 Janów Lubelski
+0605054 Janów Lubelski
+0605055 Janów Lubelski
+0605062 Modliborzyce
+0605072 Potok Wielki
+0606 krasnostawski
+0606011 Krasnystaw
+0606022 Fajsławice
+0606032 Gorzków
+0606042 Izbica
+0606052 Krasnystaw
+0606062 Kraśniczyn
+0606072 Łopiennik Górny
+0606092 Rudnik
+0606102 Siennica Różana
+0606112 Żółkiewka
+0607 kraśnicki
+0607011 Kraśnik
+0607023 Annopol
+0607024 Annopol
+0607025 Annopol
+0607032 Dzierzkowice
+0607042 Gościeradów
+0607052 Kraśnik
+0607062 Szastarka
+0607072 Trzydnik Duży
+0607082 Urzędów
+0607092 Wilkołaz
+0607102 Zakrzówek
+0608 lubartowski
+0608011 Lubartów
+0608022 Abramów
+0608032 Firlej
+0608042 Jeziorzany
+0608052 Kamionka
