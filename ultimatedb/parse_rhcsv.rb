@@ -74,11 +74,12 @@ puts "Start parsing"
 
 CSV.foreach("../scripts/relics_history.csv") do |line|
   
+  puts "#{line[0]}"
   if line[0] != "export_id" && Monuments.first(:id => line[2]) == nil
     puts "#{line[0]}:#{line[2]}"
     @monument = Monuments.new(:id => line[2], 
                      :nid_id => line[3], 
-                     :parent_id => line[5] unless line[5] = "", 
+                     :parent_id => (line[5] unless line[5] == ""), 
                      :identification => line[13], 
                      :existance => "existed", 
                      :state => "unchecked", 
@@ -92,7 +93,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
                      :latitude => line[19],
                      :longitude => line[20],
                      :coordinates_approval => false)
-    if @monument.save
+    if @monument.save!
       puts "Zabytek #{line[0]} utworzony: #{Monuments.first(:id => line[2]).id}"
     else
       puts "Problem z utworzeniem zabytku #{line[0]}: #{@monument.errors.inspect}!"
