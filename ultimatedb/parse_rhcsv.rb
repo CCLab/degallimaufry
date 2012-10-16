@@ -95,7 +95,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
     if @monument.save
       puts "Zabytek #{line[0]} utworzony: #{Monuments.first(:id => line[2]).id}"
     else
-      puts "Problem z utworzeniem zabytku #{line[0]}: #{@monument.errors.to_s}!"
+      puts "Problem z utworzeniem zabytku #{line[0]}: #{@monument.errors.inspect}!"
     end
   elsif line[21] == "edit" || line[21] == "confirm"
     @m = Monuments.first(:id => line[2])
