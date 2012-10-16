@@ -16,7 +16,7 @@ class Monuments
   
   property :id, Integer, :key => true
   property :nid_id, Integer
-  property :parent_id, Integer
+  property :parent_id, Integer, :required => false
   property :child_order, Integer
   property :identification, Text
   property :categories, Text
