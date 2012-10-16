@@ -88,7 +88,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
                      :place_id => line[11],
                      :commune_id => Terc.all(:name => line[9]).select{|e| e.terc_code.length == 7}.first.terc_code,
                      :district_id => Terc.all(:name => line[8]).select{|e| e.terc_code.length == 4}.first.terc_code,
-                     :voivodeship_id => Terc.all(:name => line[7]).select{|e| e.terc_code.length == 2}.first.terc_code,
+                     :voivodeship_id => Terc.all(:name => line[7].upcase.tr('ąćęłńóśźż', 'ĄĆĘŁŃÓŚŹŻ')).select{|e| e.terc_code.length == 2}.first.terc_code,
                      :latitude => line[19],
                      :longitude => line[20],
                      :coordinates_approval => false)
