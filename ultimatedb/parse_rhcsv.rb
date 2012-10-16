@@ -92,7 +92,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
                      :latitude => line[19],
                      :longitude => line[20],
                      :coordinates_approval => false)
-      puts "Zabytek #{line[0]} utworzony"
+      puts "Zabytek #{line[0]} utworzony: #{Monuments.first(:id => line[2]).id}"
     else
       puts "Problem z utworzeniem zabytku #{line[0]}: #{Monuments.errors.to_s}!"
     end
