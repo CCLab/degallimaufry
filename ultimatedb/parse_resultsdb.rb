@@ -61,6 +61,6 @@ ResultMonuments.each do |monument|
             :street => monument.address, 
             :dating_of_obj => monument.date, 
             :categories => monument.categories, 
-            :latitude => monument.latitude, 
-            :longitude => monument.longitude)
+            :latitude => monument.lat, 
+            :longitude => monument.lon)
 end
