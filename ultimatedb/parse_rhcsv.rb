@@ -16,7 +16,7 @@ class Monuments
   
   property :id, Integer, :key => true
   property :nid_id, Integer
-  property :parent_id, Integer, :required => false
+  property :parent_id, Integer
   property :child_order, Integer
   property :identification, Text
   property :categories, Text
@@ -78,7 +78,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
     puts "#{line[0]}:#{line[2]}"
     @monument = Monuments.new(:id => line[2], 
                      :nid_id => line[3], 
-                     :parent_id => line[5], 
+                     :parent_id => line[5] unless line[5] = "", 
                      :identification => line[13], 
                      :existance => "existed", 
                      :state => "unchecked", 
