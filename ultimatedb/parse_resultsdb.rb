@@ -55,6 +55,7 @@ DataMapper.finalize
 DataMapper.auto_upgrade!
 
 ResultMonuments.each do |monument|
+  puts "ID: #{monument.oz_id}"
   @m = Monuments.first(:id => monument.oz_id)
   @m.update(:state => "checked", 
             :identification => monument.name, 
