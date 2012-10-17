@@ -72,7 +72,7 @@ puts "Start parsing"
 # line[22]: "categories"
 # line[23]: "categories_action"
 
-CSV.foreach("../scripts/relics_history.csv") do |line|
+CSV.foreach("modified_rh.csv") do |line|
   
   if line[0] != "export_id" && Monuments.first(:id => line[2]) == nil
     puts "#{line[0]}:#{line[2]}"
