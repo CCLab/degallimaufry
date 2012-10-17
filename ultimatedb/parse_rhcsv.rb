@@ -79,7 +79,7 @@ CSV.foreach("../scripts/relics_history.csv") do |line|
     puts "#{line[0]}:#{line[2]}"
     @monument = Monuments.new(:id => line[2], 
                      :nid_id => line[3], 
-                     :parent_id => (line[5] unless line[5] == ""), 
+                     :parent_id => (line[5].split('/').last unless line[5] == ""), 
                      :identification => line[13], 
                      :existance => "existed", 
                      :state => "unchecked", 
