@@ -1,7 +1,7 @@
 CREATE TABLE monuments(
     id                          INTEGER,     -- id in Otwarte Zabytki db
     nid_id                      INTEGER,     -- id in the NID db
-    parent_id                   INTEGER,
+    parent_id                   INTEGER,m
     child_order                 INTEGER,
     identification              TEXT,
     categories                  TEXT,
